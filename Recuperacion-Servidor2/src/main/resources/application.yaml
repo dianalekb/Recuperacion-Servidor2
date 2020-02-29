@@ -1,0 +1,10 @@
+
+javax:
+  sql:
+    DataSource:
+      userDataSource:
+        dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+        dataSource:
+          databaseName: "supletorio"
+          user: "postgres"
+          password: "12345678"

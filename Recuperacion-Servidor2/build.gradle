@@ -1,0 +1,51 @@
+plugins {
+    id 'java-library'
+    id "it.gianluz.capsule" version "1.0.3"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+	compile group: 'io.helidon.microprofile.bundles', name: 'helidon-microprofile-core', version: '1.4.0'
+	compile group: 'io.helidon', name: 'helidon-bom', version: '1.4.0', ext: 'pom'
+	compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.29.1'
+	
+	
+	compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	
+	
+	//Consul
+	compile group: 'com.ecwid.consul', name: 'consul-api', version:'1.4.4'
+	
+	
+	//JPA
+	compile group: 'io.helidon.integrations.cdi', name: 'helidon-integrations-cdi-datasource-hikaricp', version: '1.4.1'
+	compile group: 'io.helidon.integrations.cdi', name: 'helidon-integrations-cdi-jta-weld', version: '1.4.1'
+	compile group: 'io.helidon.integrations.cdi', name: 'helidon-integrations-cdi-jpa', version: '1.4.1'
+	compile group: 'io.helidon.integrations.cdi', name: 'helidon-integrations-cdi-hibernate', version: '1.4.1'
+	compile group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '2.2.2'
+	compile group: 'javax.transaction', name: 'javax.transaction-api', version: '1.2'
+	
+	//Config extension consul
+	compile group: 'org.microprofile-ext.config-ext', name: 'configsource-consul', version: '1.0.9'
+	
+	//Postgres
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.8'
+}
+
+task copyLibs(type: Copy){
+	from configurations.runtime
+	into 'build/libs/libs'
+}
+
+task ejecutable(type:FatCapsule){
+	group = 'build'
+	applicationClass 'io.helidon.microprofile.server.Main'
+	capsuleManifest{
+		applicationName='users' 
+	}
+	
+}
